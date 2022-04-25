@@ -1,0 +1,15 @@
+﻿<Window x:Class="_1988089.ReportScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_1988089"
+        mc:Ignorable="d"
+        Title="ReportScreen" Height="650" Width="900" Icon="/Images/online-shop.png" WindowStartupLocation="CenterScreen">
+    <Canvas>
+        <Image x:Name="inventory" Source="/Images/shelf.png" Width="200" Canvas.Left="115" Cursor="Hand" Canvas.Top="128" MouseLeftButtonDown="inventory_MouseLeftButtonDown"></Image>
+        <Image x:Name="report" Source="/Images/revenue.png" Width="200" Canvas.Left="561" Cursor="Hand" Canvas.Top="128" MouseLeftButtonDown="report_MouseLeftButtonDown"></Image>
+        <Label Content="Báo cáo tồn kho" Foreground="Red" FontSize="20" HorizontalContentAlignment="Center" Canvas.Left="115" Canvas.Top="363" Width="200" Height="57"/>
+        <Label Content="Báo cáo doanh thu" Foreground="Red" FontSize="20" HorizontalContentAlignment="Center" Canvas.Left="561" Canvas.Top="363" Width="200" Height="57"/>
+    </Canvas>
+</Window>

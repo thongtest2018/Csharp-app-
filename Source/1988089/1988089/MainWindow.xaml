@@ -1,0 +1,128 @@
+﻿<Window x:Class="_1988089.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="{materialDesign:MaterialDesignFont}"
+        xmlns:local="clr-namespace:_1988089"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="650" Width="1000" Loaded="Window_Loaded" WindowState="Maximized">
+    <Window.Resources>
+        <local:NumberToMoneyConverter x:Key="converter"></local:NumberToMoneyConverter>
+        <local:ByteToImageConverter x:Key="imgConverter"></local:ByteToImageConverter>
+    </Window.Resources>
+    <DockPanel LastChildFill="True">
+        <StackPanel Orientation="Vertical" DockPanel.Dock="Top" Margin="0,0,0,50" >
+            <Border Width="800" BorderBrush="LightGray" BorderThickness="2">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+                <ListView Name="BrandListView" Width="740" Height="120" Canvas.Left="231" Canvas.Top="10" ScrollViewer.HorizontalScrollBarVisibility="Disabled" PreviewMouseLeftButtonUp="BrandListView_PreviewMouseLeftButtonUp">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border x:Name="BrandNameBorder" CornerRadius="10" Background="Red">
+                                <Label Name="BrandName" Foreground="White" Content="{Binding Name}" Padding="10"/>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                    <Image VerticalAlignment="Bottom" Source="/Images/edit.png" Width="50" RenderOptions.BitmapScalingMode="HighQuality" Cursor="Hand" MouseLeftButtonDown="Image_MouseLeftButtonDown_2"></Image>
+                </StackPanel>
+            </Border>
+            <TextBlock Margin="0,0,150,0" HorizontalAlignment="Right" Text="* Nhấn chuột phải vào sản phẩm để chỉnh sửa.&#x0a;  Nhấn dấu + hoặc - để thêm hoặc xóa sản phẩm"></TextBlock>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,130,0">
+                <Image Margin="0,0,5,0" Source="/Images/plusa.jpg" Width="50" Height="50" RenderOptions.BitmapScalingMode="HighQuality" Cursor="Hand" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
+                <Image Margin="0,0,5,0" Source="/Images/minusa.jpg" Width="50" Height="50" RenderOptions.BitmapScalingMode="HighQuality" Cursor="Hand" MouseLeftButtonDown="Image_MouseLeftButtonDown_1"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Foreground="Red" HorizontalAlignment="Left" Margin="400,0,0,0" Content="Tất cả các sản phẩm>" Cursor="Hand" MouseLeftButtonDown="Label_MouseLeftButtonDown" Width="143" Height="30"></Label>
+                <Label Content="{Binding brandName}"></Label>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical" DockPanel.Dock="Left" Width="300" Margin="50,0,50,25">
+            <Border BorderBrush="LightGray" BorderThickness="2">
+            <StackPanel Margin="10">
+            <Label HorizontalAlignment="Center" Content="Tìm kiếm sản phẩm theo tên sản phẩm"></Label>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+                <TextBox x:Name="searchBox" BorderBrush="LightBlue" Width="180" Margin="0,0,10,0" Height="40"></TextBox>
+                <Image x:Name="search" Source="/Images/search.png" Width="40" RenderOptions.BitmapScalingMode="HighQuality" MouseLeftButtonDown="search_MouseLeftButtonDown" Cursor="Hand"></Image>
+            </StackPanel>
+            </StackPanel>
+            </Border>
+            <Border BorderBrush="LightGray" BorderThickness="2" Margin="0,10,0,0">
+                <StackPanel>
+                    <Label Margin="30,20,0,0" Content="Khoảng giá"></Label>
+                    <StackPanel HorizontalAlignment="Center" Margin="0,10,0,0">
+                        <RadioButton x:Name="price1" Checked="RadioButton_Checked_4" >&lt;	5.000.000 đồng</RadioButton>
+                        <RadioButton x:Name="price2" Checked="RadioButton_Checked_5" >5.000.000 đồng - 10.000.000 đồng</RadioButton>
+                        <RadioButton x:Name="price3" Checked="RadioButton_Checked_6" >10.000.000 - 15.000.000 đồng</RadioButton>
+                        <RadioButton x:Name="price4" Checked="RadioButton_Checked_7" >&gt;	15.000.000 đồng</RadioButton>
+                    </StackPanel>
+                    <Label Margin="30,20,0,0" Content="Bộ nhớ trong"></Label>
+                    <StackPanel HorizontalAlignment="Left" Margin="32,10,0,0">
+                        <RadioButton x:Name="memory5" Checked="memory5_Checked" >32GB</RadioButton>
+                        <RadioButton x:Name="memory1" Checked="RadioButton_Checked" >64GB</RadioButton>
+                        <RadioButton x:Name="memory2" Checked="RadioButton_Checked_1" >128GB</RadioButton>
+                        <RadioButton x:Name="memory3" Checked="RadioButton_Checked_2" >256GB</RadioButton>
+                        <RadioButton x:Name="memory4" Checked="RadioButton_Checked_3" >512GB</RadioButton>
+                    </StackPanel>
+                    <Label Margin="30,20,0,0" Content="Dung lượng ram"></Label>
+                    <StackPanel HorizontalAlignment="Left" Margin="32,10,0,0">
+                        <RadioButton x:Name="ram1" Checked="RadioButton_Checked_8" >&lt;=3GB</RadioButton>
+                        <RadioButton x:Name="ram2" Checked="RadioButton_Checked_9" >4GB - 8GB</RadioButton>
+                        <RadioButton x:Name="ram3" Checked="RadioButton_Checked_10" >&gt; >=9GB</RadioButton>
+                    </StackPanel>
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,20,0,20">
+                        <Button Margin="0,0,50,0" x:Name="filterButton" Content="Filter" Click="filterButton_Click"></Button>
+                        <Button Content="Clear" Click="Button_Click"></Button>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Bottom">
+            <Label Name="Currentpagenumber" Content="{Binding pageInfo}" Foreground="Red" HorizontalAlignment="Center"></Label>
+            <StackPanel Margin="20" Orientation="Horizontal" Width="800" Height="50" HorizontalAlignment="Center">
+                <Button x:Name="First" Click="First_Click" Content="&lt;&lt;" Margin="220,0,5,0" Background="Red" BorderBrush="Red" Foreground="White" Width="50"></Button>
+                <Button x:Name="Previous" Click="Previous_Click" Content="&lt;" Margin="5" Background="Red" BorderBrush="Red" Foreground="White"  Width="50"></Button>
+                <Label Name="PageInfo" Content="{Binding currentPage}" VerticalAlignment="Center" Margin="5"></Label>
+                <Button x:Name="Next" Click="Next_Click" Content="&gt;" Margin="5" Background="Red" BorderBrush="Red" Foreground="White"  Width="50"></Button>
+                <Button x:Name="Last" Click="Last_Click" Content="&gt;&gt;" Margin="5" Background="Red" BorderBrush="Red" Foreground="White"  Width="50"></Button>
+                <ComboBox Name="RowPerPageCombobox" Width="40" Margin="10,0,0,0" SelectedIndex="0" SelectionChanged="RowPerPage_SelectionChanged"></ComboBox>
+            </StackPanel>
+        </StackPanel>
+        
+        <ListView Name="ProductionListView" Canvas.Left="231" Canvas.Top="143" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="LightGray" BorderThickness="2">
+                        <StackPanel Orientation="Vertical" Width="248" Margin="5" Height="300">
+                            <StackPanel.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Edit" Click="MenuItem_Click"></MenuItem>
+                                </ContextMenu>
+                            </StackPanel.ContextMenu>
+                            <Image Source="{Binding ImageData,Converter={StaticResource imgConverter}}"/>
+                            <TextBlock Margin="0,10,0,10" Text="{Binding Name}" HorizontalAlignment="Center"/>
+                            <Label Foreground="Red" Content="{Binding Price,Converter={StaticResource converter}}" FontWeight="Bold" HorizontalAlignment="Center"/>
+                            <TextBlock Text="{Binding Description}" TextWrapping="WrapWithOverflow"></TextBlock>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </DockPanel>
+</Window>

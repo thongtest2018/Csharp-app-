@@ -1,0 +1,80 @@
+﻿<Window x:Class="_1988089.PurchaseScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_1988089"
+        mc:Ignorable="d"
+        Title="PurchaseScreen" Height="620" Width="1350" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Icon="/Images/online-shop.png">
+    <Window.Resources>
+        <local:NumberToMoneyConverter x:Key="converter"></local:NumberToMoneyConverter>
+        <local:StatusToImageConverter x:Key="statusConverter"></local:StatusToImageConverter>
+    </Window.Resources>
+    <Canvas>
+        <DataGrid x:Name="PurchaseList" Width="1250" Height="410" Canvas.Left="49" Canvas.Top="81" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding id}" Width="100"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Khách hàng" Width="400">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding cusname}"></TextBlock>
+                                <TextBlock Text="{Binding cusadd}"></TextBlock>
+                                <TextBlock Text="{Binding custel}"></TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Tổng tiền thanh toán" Width="200">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding total,Converter={StaticResource converter}}" Foreground="red"></Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Ngày giờ tạo đơn hàng" Binding="{Binding datecreate}" Width="200"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Trạng thái đơn hàng" Width="200">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Width="50" RenderOptions.BitmapScalingMode="HighQuality" Source="{Binding status,Converter={StaticResource statusConverter}}"></Image>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Thao tác" Width="150">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="50" Cursor="Hand" MouseLeftButtonDown="Image_MouseLeftButtonDown" Source="/Images/edit.png"></Image>
+                                <Image Margin="10 0 0 0" Width="70" Height="50" Cursor="Hand" MouseLeftButtonDown="Image_MouseLeftButtonDown_2" Source="/Images/delete.png"></Image>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Thêm đơn hàng" Click="Button_Click" Canvas.Left="1107" Canvas.Top="44" Width="142"/>
+        <StackPanel Orientation="Horizontal" Width="800" Height="50" HorizontalAlignment="Center" Canvas.Left="233" Canvas.Top="529">
+            <Button x:Name="First" Click="First_Click"  Content="&lt;&lt;" Margin="220,0,5,0" Background="Red" BorderBrush="Red" Foreground="White" Width="50"></Button>
+            <Button x:Name="Previous" Click="Previous_Click" Content="&lt;" Margin="5" Background="Red" BorderBrush="Red" Foreground="White"  Width="50"></Button>
+            <Label Name="PageInfo" Content="{Binding currentPage}" VerticalAlignment="Center" Margin="5"></Label>
+            <Button x:Name="Next" Click="Next_Click" Content="&gt;" Margin="5" Background="Red" BorderBrush="Red" Foreground="White"  Width="50"></Button>
+            <Button x:Name="Last" Click="Last_Click" Content="&gt;&gt;" Margin="5" Background="Red" BorderBrush="Red" Foreground="White"  Width="50"></Button>
+        </StackPanel>
+        <Label Name="currentPage" Content="{Binding pageInfo}" Foreground="Red" HorizontalContentAlignment="Center" Canvas.Left="479" Canvas.Top="496" Width="250"/>
+        <Label Content="Tìm kiếm theo :" Canvas.Left="26" Canvas.Top="26" Width="90"/>
+        <ComboBox Name="search" Canvas.Left="121" Canvas.Top="26" Width="155" SelectedIndex="0" SelectionChanged="search_SelectionChanged">
+
+        </ComboBox>
+        <TextBox Height="23" Canvas.Left="351" TextWrapping="Wrap" Text="" Name="searchIDTextBox" Canvas.Top="28" Width="103" PreviewTextInput="searchIDTextBox_PreviewTextInput" RenderTransformOrigin="0.222,0.634"/>
+        <Image MouseLeftButtonDown="Image_MouseLeftButtonDown_1" Cursor="Hand" Height="23" Canvas.Left="617" Canvas.Top="27" Width="100" Source="/Images/search.png" RenderOptions.BitmapScalingMode="HighQuality" RenderTransformOrigin="0.095,0.525"/>
+        <TextBox Height="23" Canvas.Left="351" TextWrapping="Wrap" x:Name="nameTextBox" Text="" Canvas.Top="28" Width="120"/>
+        <Label Content="ID :" Name="idLabel" Canvas.Left="310" Canvas.Top="28"/>
+        <Label Content="Tên" Name="nameLabel" Canvas.Left="310" Canvas.Top="28" RenderTransformOrigin="0.185,-0.227"/>
+        <ComboBox Name="statusComboBox" Canvas.Left="391" Canvas.Top="26" Width="96"/>
+        <DatePicker Name="fromDatepicker" Canvas.Left="378" Canvas.Top="26"/>
+        <Label Content="Từ ngày " Name="fromDateLabel" Canvas.Left="319" Canvas.Top="26" RenderTransformOrigin="-0.036,0.597"/>
+        <Label Content="Trạng thái :" Name="statusLabel" Canvas.Left="307" Canvas.Top="28"/>
+        <DatePicker Canvas.Left="538" Name="toDatePicker" Canvas.Top="26" RenderTransformOrigin="0.384,0.472"/>
+        <Label Content="Đến ngày " x:Name="toDateLabel" Canvas.Left="471" Canvas.Top="26" RenderTransformOrigin="-0.036,0.597"/>
+    </Canvas>
+</Window>

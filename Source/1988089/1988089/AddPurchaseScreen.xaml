@@ -1,0 +1,86 @@
+﻿<Window x:Class="_1988089.AddPurchaseScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_1988089"
+        mc:Ignorable="d"
+        Title="AddPurchaseScreen" Height="950" Width="1400" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Icon="/Images/online-shop.png">
+    <Window.Resources>
+        <local:ByteToImageConverter x:Key="imgConverter"></local:ByteToImageConverter>
+        <local:NumberToMoneyConverter x:Key="converter"></local:NumberToMoneyConverter>
+    </Window.Resources>
+    <Canvas>
+
+        <DataGrid Name="PurchaseDetail" Width="1200" Height="400" Canvas.Left="117" Canvas.Top="187" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Hình ảnh" Width="200">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding image,Converter={StaticResource imgConverter}}"></Image>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Tên sản phẩm" Binding="{Binding name}" Width="200"></DataGridTextColumn>
+                <DataGridTextColumn Header="Đơn giá" Binding="{Binding price,Converter={StaticResource converter }}" Width="200"></DataGridTextColumn>
+                <DataGridTextColumn Header="Số lượng" Binding="{Binding quantity}" Width="200"></DataGridTextColumn>
+                <DataGridTextColumn Header="Thành tiền" Binding="{Binding total, Converter={StaticResource converter}}" Width="200"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Thao tác" Width="150">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Click="Button_Click_1" Content="+"></Button>
+                                <Button Click="Button_Click_2" Content="-"></Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <ComboBox Name="brandComboBox" Canvas.Left="106" Canvas.Top="79" Width="131" Height="59" SelectionChanged="brandComboBox_SelectionChanged">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <Border x:Name="BrandNameBorder" CornerRadius="10" Background="Red">
+                        <Label Name="BrandName" Foreground="White" Content="{Binding Name}" Padding="10"/>
+                    </Border>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Chọn hãng :" Canvas.Left="106" Canvas.Top="33" Width="120" Height="41"/>
+        <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Chọn sản phẩm:" Canvas.Left="487" Canvas.Top="33" Width="120" Height="41" RenderTransformOrigin="1.147,0.447"/>
+        <ComboBox x:Name="productComboBox" Canvas.Left="389" Canvas.Top="79" Width="331" Height="59">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <Label Name="BrandName" Foreground="Red" Content="{Binding Name}" Padding="10"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBox x:Name="quantityTextBox" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="59" Canvas.Left="823" TextWrapping="Wrap" Text="" Canvas.Top="74" Width="53" PreviewTextInput="quantityTextBox_PreviewTextInput" LostFocus="quantityTextBox_LostFocus"/>
+        <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Nhập số lượng :" Canvas.Left="789" Canvas.Top="33" Width="120" Height="41"/>
+        <Button Content="Thêm vào chi tiết đơn hàng" Canvas.Left="1077" Canvas.Top="79" Width="209" Height="41" Click="Button_Click"/>
+        <Label Content="Chi tiết đơn hàng :" Foreground="Red" Canvas.Left="117" Canvas.Top="163" Width="111"/>
+        <RadioButton Content="Khách hàng cũ" Name="oldCusRadioButton" Canvas.Left="117" Canvas.Top="655" Checked="oldCusRadioButton_Checked"/>
+        <RadioButton Content="Khách hàng mới" Name="newCusRadioButton" Canvas.Left="366" Canvas.Top="655"/>
+
+        <ComboBox x:Name="oldCustomerComboBox" Canvas.Left="117" Canvas.Top="690" Width="180" Height="45" IsEnabled="{Binding ElementName=oldCusRadioButton, Path=IsChecked}" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <Label Foreground="Red" Content="{Binding Name}" Padding="10"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Tên khách hàng" Canvas.Left="366" Canvas.Top="698" Height="40" Width="108"/>
+        <TextBox x:Name="customerNameTextBox" Height="37" Canvas.Left="505" TextWrapping="Wrap" Text="" Canvas.Top="698" Width="160" IsEnabled="{Binding ElementName=newCusRadioButton, Path=IsChecked}"/>
+        <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Số điện thoại" Canvas.Left="684" Canvas.Top="698" Height="40" Width="108"/>
+        <TextBox x:Name="PhoneTextBox" Height="37" Canvas.Left="823" TextWrapping="Wrap" Text="" Canvas.Top="698" Width="86" IsEnabled="{Binding ElementName=newCusRadioButton, Path=IsChecked}" />
+        <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Địa chỉ" Canvas.Left="961" Canvas.Top="698" Height="40" Width="108"/>
+        <TextBox x:Name="AddressTextBox" Height="37" Canvas.Left="1056" TextWrapping="Wrap" Text="" Canvas.Top="698" Width="305" IsEnabled="{Binding ElementName=newCusRadioButton, Path=IsChecked}" />
+        <Label Content="Tổng tiền :" Canvas.Left="1090" Canvas.Top="592" Width="74"/>
+        <Label Content="" Name="totalLabel" Foreground="red" Canvas.Left="1169" Canvas.Top="592" Width="148"/>
+        <Button x:Name="addPurchase" Content="Thêm đơn hàng" Canvas.Left="903" Canvas.Top="852" Width="140" Click="addPurchase_Click"/>
+        <Button x:Name="cancelButton" Content="Hủy bỏ" Canvas.Left="1077" Canvas.Top="852" Width="140" Click="cancelButton_Click"/>
+
+
+    </Canvas>
+</Window>
